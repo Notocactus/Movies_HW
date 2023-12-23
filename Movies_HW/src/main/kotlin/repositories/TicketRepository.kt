@@ -26,7 +26,7 @@ class TicketsRepository {
                         }
                         JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
                         JSONSessionsSerializer().jsonSerialize(sessionsFilePath, sessionsRepository.sessionsArray!!)
-                        return ("Билет куплен")
+                        return ("Билет продан")
                     } else {
                         return "Место занято, выберите новое"
                     }
