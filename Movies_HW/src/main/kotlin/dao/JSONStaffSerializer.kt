@@ -14,8 +14,8 @@ class JSONStaffSerializer : JSONSerializer<Staff> {
         File(path).writeText(Json.encodeToString<Array<Staff>>(array))
     }
 
-    override fun jsonDeserialize(path: String): Array<Staff>?{
-        if (File(path).exists()){
+    override fun jsonDeserialize(path: String): Array<Staff>? {
+        if (File(path).exists()) {
             val array = Json.decodeFromString<Array<Staff>>(File(path).readText(Charsets.UTF_8))
             return array
         }

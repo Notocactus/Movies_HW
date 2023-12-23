@@ -3,7 +3,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-const val sessionsFilePath =  "src/main/data/sessions.json"
+const val sessionsFilePath = "src/main/data/sessions.json"
 const val moviesFilePath = "src/main/data/movies.json"
 const val ticketsFilePath = "src/main/data/tickets.json"
 const val staffFilePath = "src/main/data/staff.json"
@@ -72,7 +72,7 @@ fun isDateValid(date: String?): Boolean {
     }
 }
 
-fun isDurationValid(input : String?): Boolean {
+fun isDurationValid(input: String?): Boolean {
     val myFormat = SimpleDateFormat("HH:mm")
     myFormat.isLenient = false
     try {
@@ -83,7 +83,7 @@ fun isDurationValid(input : String?): Boolean {
     }
 }
 
-fun isUInt(input : String?): Boolean {
+fun isUInt(input: String?): Boolean {
     try {
         input!!.toUInt()
         return true

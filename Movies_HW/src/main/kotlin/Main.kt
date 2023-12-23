@@ -4,40 +4,42 @@ fun main() {
     val system = System()
     var isEnter = false
     var command: String
-    while (!isEnter){
+    while (!isEnter) {
         println(authoMenu)
         command = readln()
-        when (command){
+        when (command) {
             "0" -> return
-            "1" ->{
+            "1" -> {
                 println("Введите логин: ")
                 val login = readln()
                 println("Введите пароль: ")
                 val password = readln()
-                if (system.enter(login, password)){
+                if (system.enter(login, password)) {
                     println("Авторизация прошла успешно")
                     isEnter = true
-                }
-                else{
+                } else {
                     println("Пользователя с подобными данными не существует")
                 }
             }
-            "2" ->{
+
+            "2" -> {
                 println("Введите логин: ")
                 val login = readln()
                 println("Введите пароль: ")
                 val password = readln()
-                if (system.register(login, password)){
+                if (system.register(login, password)) {
                     println("Регистрация прошла успешно")
                     isEnter = true
-                }
-                else{
+                } else {
                     println("Пользователь с такими данными уже существует")
                 }
             }
+
             else -> {
-                println("\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
-                        "\nНажмите Enter чтобы вернуться к меню. ")
+                println(
+                    "\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
+                            "\nНажмите Enter чтобы вернуться к меню. "
+                )
                 readln()
             }
         }
@@ -52,7 +54,7 @@ fun main() {
 
             "1" -> {
                 println("Введите название фильма: ")
-                val movieName : String = readln()
+                val movieName: String = readln()
                 println(movieMenu)
                 command = readln()
                 when (command) {
@@ -60,12 +62,12 @@ fun main() {
 
                     "1" -> {
                         println("Введите длительность фильма в минутах: ")
-                        var input : String = readln()
+                        var input: String = readln()
                         while (!isUInt(input)) {
                             println("Введите корректную длительность фильма в минутах: ")
                             input = readln()
                         }
-                        val duration : UInt = input.toUInt()
+                        val duration: UInt = input.toUInt()
                         println(system.addMovie(movieName, duration))
                         println("\nНажмите Enter чтобы вернуться к меню. ")
                         readln()
@@ -73,7 +75,7 @@ fun main() {
 
                     "2" -> {
                         println("Введите дату и время сеанса (DD/MM/YYYY HH:MM): ")
-                        var sessionDate : String = readln()
+                        var sessionDate: String = readln()
                         while (!isDateValid(sessionDate)) {
                             println("Пожалуйста введите корректную дату: ")
                             sessionDate = readln()
@@ -124,8 +126,10 @@ fun main() {
                     }
 
                     else -> {
-                        println("\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
-                                "\nНажмите Enter чтобы вернуться к главному меню. ")
+                        println(
+                            "\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
+                                    "\nНажмите Enter чтобы вернуться к главному меню. "
+                        )
                         readln()
                         continue
                     }
@@ -134,7 +138,7 @@ fun main() {
 
             "2" -> {
                 println("Введите дату и время сеанса (DD/MM/YYYY HH:MM): ")
-                var sessionDate : String = readln()
+                var sessionDate: String = readln()
                 while (!isDateValid(sessionDate)) {
                     println("Пожалуйста введите корректную дату: ")
                     sessionDate = readln()
@@ -146,8 +150,8 @@ fun main() {
 
                     "1" -> {
                         println("Введите номер места")
-                        var place : String = readln()
-                        var placeNum : UInt
+                        var place: String = readln()
+                        var placeNum: UInt
                         while (true) {
                             if (isUInt(place)) {
                                 placeNum = place.toUInt()
@@ -166,7 +170,7 @@ fun main() {
 
                     "2" -> {
                         println("Введите новую дату и время (DD/MM/YYYY HH:MM) сеанса: ")
-                        var newDate : String = readln()
+                        var newDate: String = readln()
                         while (!isDateValid(newDate)) {
                             println("Пожалуйста введите корректную дату: ")
                             newDate = readln()
@@ -208,8 +212,10 @@ fun main() {
                     }
 
                     else -> {
-                        println("\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
-                                "\nНажмите Enter чтобы вернуться к главному меню. ")
+                        println(
+                            "\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
+                                    "\nНажмите Enter чтобы вернуться к главному меню. "
+                        )
                         readln()
                         continue
                     }
@@ -235,8 +241,10 @@ fun main() {
                     }
 
                     else -> {
-                        println("\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
-                                "\nНажмите Enter чтобы вернуться к главному меню. ")
+                        println(
+                            "\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
+                                    "\nНажмите Enter чтобы вернуться к главному меню. "
+                        )
                         readln()
                         continue
                     }
@@ -251,8 +259,10 @@ fun main() {
             }
 
             else -> {
-                println("\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
-                        "\nНажмите Enter чтобы вернуться к главному меню. ")
+                println(
+                    "\nВведена неверная команда. Пожалуйста, выберите одну из представленных вариантов. " +
+                            "\nНажмите Enter чтобы вернуться к главному меню. "
+                )
                 readln()
             }
         }

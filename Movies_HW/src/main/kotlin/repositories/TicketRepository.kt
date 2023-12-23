@@ -10,10 +10,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class TicketsRepository {
-    private val path =  ticketsFilePath
+    private val path = ticketsFilePath
     var ticketsArray = JSONTicketsSerializer().jsonDeserialize(path)
 
-    fun sellTicket(sessionsRepository: SessionsRepository, id: String, date: String, place: UInt): String{
+    fun sellTicket(sessionsRepository: SessionsRepository, id: String, date: String, place: UInt): String {
         if (sessionsRepository.sessionsArray != null) {
             for (session in sessionsRepository.sessionsArray!!) {
                 if (session.date == date) {
@@ -21,7 +21,7 @@ class TicketsRepository {
                         ++(session.places[place.toInt() - 1])
                         ticketsArray = if (ticketsArray != null) {
                             ticketsArray!! + (Ticket(id, session.id, session.cost, place, date))
-                        } else{
+                        } else {
                             arrayOf(Ticket(id, session.id, session.cost, place, date))
                         }
                         JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
@@ -36,7 +36,7 @@ class TicketsRepository {
         return ("Такого сеанса не существует. Воспользуйтесь функцией ещё раз с существующим сеансом")
     }
 
-    fun returnTicket(ticketId: String) : String {
+    fun returnTicket(ticketId: String): String {
         if (ticketsArray != null) {
             val tickets = ticketsArray!!.toMutableList()
             for (ticket in tickets) {
@@ -51,7 +51,7 @@ class TicketsRepository {
         return ("Билета с данным ID не существует, повторите попытку с корректным билетом")
     }
 
-    fun tagVisitor(movieArray: Array<Movie>?, sessionsRepository: SessionsRepository, ticketId: String) : String {
+    fun tagVisitor(movieArray: Array<Movie>?, sessionsRepository: SessionsRepository, ticketId: String): String {
         if (ticketsArray != null) {
             for (ticket in ticketsArray!!) {
                 if (ticket.id == ticketId) {
@@ -90,9 +90,9 @@ class TicketsRepository {
         return ("Билета с данным ID не существует, повторите попытку с корректным билетом")
     }
 
-    fun removeTickets(sessionId: String){
+    fun removeTickets(sessionId: String) {
         var isChanged = false
-        if (ticketsArray != null){
+        if (ticketsArray != null) {
             val tickets = ticketsArray!!.toMutableList()
             for (ticket in tickets) {
                 if (ticket.sessionId == sessionId) {
@@ -100,23 +100,23 @@ class TicketsRepository {
                     isChanged = true
                 }
             }
-            if (isChanged){
+            if (isChanged) {
                 ticketsArray = tickets.toTypedArray()
                 JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
             }
         }
     }
 
-    fun editDate(sessionId: String, newDate: String){
-        if (ticketsArray != null){
+    fun editDate(sessionId: String, newDate: String) {
+        if (ticketsArray != null) {
             var isChanged = false
-            for (ticket in ticketsArray!!){
-                if (ticket.sessionId == sessionId){
+            for (ticket in ticketsArray!!) {
+                if (ticket.sessionId == sessionId) {
                     ticket.date = newDate
                     isChanged = true
                 }
             }
-            if (isChanged){
+            if (isChanged) {
                 JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
             }
         }

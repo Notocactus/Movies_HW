@@ -14,8 +14,8 @@ class JSONTicketsSerializer : JSONSerializer<Ticket> {
         File(path).writeText(Json.encodeToString<Array<Ticket>>(array))
     }
 
-    override fun jsonDeserialize(path: String): Array<Ticket>?{
-        if (File(path).exists()){
+    override fun jsonDeserialize(path: String): Array<Ticket>? {
+        if (File(path).exists()) {
             val array = Json.decodeFromString<Array<Ticket>>(File(path).readText(Charsets.UTF_8))
             return array
         }

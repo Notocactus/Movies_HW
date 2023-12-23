@@ -14,8 +14,8 @@ class JSONSessionsSerializer : JSONSerializer<Session> {
         File(path).writeText(Json.encodeToString<Array<Session>>(array))
     }
 
-    override fun jsonDeserialize(path: String): Array<Session>?{
-        if (File(path).exists()){
+    override fun jsonDeserialize(path: String): Array<Session>? {
+        if (File(path).exists()) {
             val array = Json.decodeFromString<Array<Session>>(File(path).readText(Charsets.UTF_8))
             return array
         }

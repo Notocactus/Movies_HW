@@ -13,8 +13,9 @@ class JSONMoviesSerializer : JSONSerializer<Movie> {
         }
         File(path).writeText(Json.encodeToString<Array<Movie>>(array))
     }
-    override fun jsonDeserialize(path: String): Array<Movie>?{
-        if (File(path).exists()){
+
+    override fun jsonDeserialize(path: String): Array<Movie>? {
+        if (File(path).exists()) {
             val array = Json.decodeFromString<Array<Movie>>(File(path).readText(Charsets.UTF_8))
             return array
         }
