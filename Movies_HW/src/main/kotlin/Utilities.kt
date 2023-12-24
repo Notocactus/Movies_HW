@@ -1,4 +1,5 @@
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -19,6 +20,7 @@ const val mainMenu = "С чем мы будем работать?\n" +
         "2) С сеансами\n" +
         "3) С билетами\n" +
         "4) Показать все фильмы\n" +
+        "5) Показать сеансы (по дате) \n" +
         "0) Выйти"
 
 const val movieMenu = "1) Добавить фильм \n" +
@@ -34,7 +36,6 @@ const val sessionMenu = "1) Продать билет \n" +
         "3) Редактировать цену сеанса \n" +
         "4) Удалить сеанс \n" +
         "5) Показ мест \n" +
-        "6) Показать сеансы (по дате) \n" +
         "0) Вернуться к главному меню"
 
 const val ticketMenu = "1) Возврат билета \n" +
@@ -61,6 +62,18 @@ const val menu = "Список команд: \n" +
         "Введите номер команды: "
 
 fun isDateValid(date: String?): Boolean {
+    val myFormat = SimpleDateFormat("dd/MM/yyyy")
+    myFormat.isLenient = false
+    try {
+        myFormat.parse(date)
+        val dateToLocalDateTime = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+        return dateToLocalDateTime > LocalDate.now()
+    } catch (e: Exception) {
+        return false
+    }
+}
+
+fun isDateTimeValid(date: String?): Boolean {
     val myFormat = SimpleDateFormat("dd/MM/yyyy HH:mm")
     myFormat.isLenient = false
     try {

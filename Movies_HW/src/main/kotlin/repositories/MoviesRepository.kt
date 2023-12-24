@@ -9,15 +9,16 @@ class MoviesRepository {
     private val path = moviesFilePath
     var moviesArray: Array<Movie>? = JSONMoviesSerializer().jsonDeserialize(path)
 
-    fun findMovie(name: String): String {
+    fun findMovie(name: String): Movie? {
         if (moviesArray != null) {
             for (movie in moviesArray!!) {
-                if (movie.name.lowercase(Locale.getDefault()) == name.lowercase(Locale.getDefault())) {
-                    return movie.id
+                if (movie.name.lowercase(Locale.getDefault()) == name.lowercase(Locale.getDefault()) || movie.id.lowercase(Locale.getDefault()) == name.lowercase(
+                        Locale.getDefault())) {
+                    return movie
                 }
             }
         }
-        return ""
+        return null
     }
 
     fun addMovie(id: String, name: String, duration: UInt): String {

@@ -76,7 +76,7 @@ fun main() {
                     "2" -> {
                         println("Введите дату и время сеанса (DD/MM/YYYY HH:MM): ")
                         var sessionDate: String = readln()
-                        while (!isDateValid(sessionDate)) {
+                        while (!isDateTimeValid(sessionDate)) {
                             println("Пожалуйста введите корректную дату: ")
                             sessionDate = readln()
                         }
@@ -139,7 +139,7 @@ fun main() {
             "2" -> {
                 println("Введите дату и время сеанса (DD/MM/YYYY HH:MM): ")
                 var sessionDate: String = readln()
-                while (!isDateValid(sessionDate)) {
+                while (!isDateTimeValid(sessionDate)) {
                     println("Пожалуйста введите корректную дату: ")
                     sessionDate = readln()
                 }
@@ -171,7 +171,7 @@ fun main() {
                     "2" -> {
                         println("Введите новую дату и время (DD/MM/YYYY HH:MM) сеанса: ")
                         var newDate: String = readln()
-                        while (!isDateValid(newDate)) {
+                        while (!isDateTimeValid(newDate)) {
                             println("Пожалуйста введите корректную дату: ")
                             newDate = readln()
                         }
@@ -201,12 +201,6 @@ fun main() {
 
                     "5" -> {
                         println(system.showPlaces(sessionDate))
-                        println("\nНажмите Enter чтобы вернуться к меню. ")
-                        readln()
-                    }
-
-                    "6" -> {
-                        println(system.showSessionsByDate(sessionDate))
                         println("\nНажмите Enter чтобы вернуться к меню. ")
                         readln()
                     }
@@ -256,6 +250,16 @@ fun main() {
                 println(system.showMovies())
                 println("\nНажмите Enter чтобы вернуться к меню. ")
                 readln()
+            }
+
+            "5" -> {
+                println("Введите дату (DD/MM/YYYY): ")
+                var sessionDate : String = readln()
+                while (!isDateValid(sessionDate)) {
+                    println("Пожалуйста введите корректную дату: ")
+                    sessionDate = readln()
+                }
+                println(system.showSessionsByDate(sessionDate))
             }
 
             else -> {

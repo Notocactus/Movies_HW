@@ -22,7 +22,7 @@ class Session(val id: String, var movieId: String, var date: String, var cost: U
         return res
     }
 
-    fun toString(moviesArray: Array<Movie>?): String {
+    fun ToString(moviesArray: Array<Movie>?): String {
         var movieName = ""
         if (moviesArray != null) {
             for (movie in moviesArray) {

@@ -17,6 +17,13 @@ class TicketsRepository {
         if (sessionsRepository.sessionsArray != null) {
             for (session in sessionsRepository.sessionsArray!!) {
                 if (session.date == date) {
+                    if (LocalDateTime.parse(
+                            session.date,
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                        ) <= LocalDateTime.now()
+                    ) {
+                        return "Сеанс уже идёт"
+                    }
                     if (session.places[place.toInt() - 1] == 0.toByte()) {
                         ++(session.places[place.toInt() - 1])
                         ticketsArray = if (ticketsArray != null) {
@@ -36,11 +43,22 @@ class TicketsRepository {
         return ("Такого сеанса не существует. Воспользуйтесь функцией ещё раз с существующим сеансом")
     }
 
-    fun returnTicket(ticketId: String): String {
+    fun returnTicket(sessionsRepository: SessionsRepository, ticketId: String): String {
         if (ticketsArray != null) {
             val tickets = ticketsArray!!.toMutableList()
             for (ticket in tickets) {
                 if (ticket.id == ticketId) {
+                    for (session in sessionsRepository.sessionsArray!!) {
+                        if (session.id == ticket.sessionId) {
+                            if (LocalDateTime.parse(
+                                    session.date,
+                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                                ) <= LocalDateTime.now()
+                            ) {
+                                return "Сеанс уже идёт"
+                            }
+                        }
+                    }
                     tickets -= ticket
                     ticketsArray = tickets.toTypedArray()
                     JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)

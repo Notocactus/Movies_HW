@@ -31,10 +31,6 @@ class System {
 
     }
 
-    fun checkMovie(name: String): Boolean {
-        return moviesRepository.findMovie(name) != ""
-    }
-
     fun addMovie(name: String, duration: UInt): String {
         return moviesRepository.addMovie(generateId(), name, duration)
     }
@@ -56,7 +52,7 @@ class System {
     }
 
     fun editSessionDate(date: String, newDate: String): String {
-        return sessionsRepository.editSessionDate(ticketsRepository, date, newDate)
+        return sessionsRepository.editSessionDate(moviesRepository, ticketsRepository, date, newDate)
     }
 
     fun editSessionCost(date: String, newCost: UInt): String {
@@ -72,7 +68,7 @@ class System {
     }
 
     fun returnTicket(ticketId: String): String {
-        return ticketsRepository.returnTicket(ticketId)
+        return ticketsRepository.returnTicket(sessionsRepository, ticketId)
     }
 
     fun tagVisitor(ticketId: String): String {
@@ -83,13 +79,14 @@ class System {
         return sessionsRepository.showPlaces(moviesRepository.moviesArray, date)
     }
 
-    fun showSessionsByName(movieName: String): String {
+    fun showSessionsByName(movieName: String) : String {
         return sessionsRepository.showSessionsByName(moviesRepository, movieName)
     }
 
-    fun showSessionsByDate(date: String): String {
-        return sessionsRepository.showSessionsByDate(date)
+    fun showSessionsByDate(date: String) : String {
+        return sessionsRepository.showSessionsByDate(moviesRepository.moviesArray, date)
     }
+
 
     fun showMovies(): String {
         return moviesRepository.showMovies()
