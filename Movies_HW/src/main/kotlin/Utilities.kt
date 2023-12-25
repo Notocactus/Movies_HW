@@ -4,10 +4,10 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-const val sessionsFilePath = "src/main/data/sessions.json"
-const val moviesFilePath = "src/main/data/movies.json"
-const val ticketsFilePath = "src/main/data/tickets.json"
-const val staffFilePath = "src/main/data/staff.json"
+const val sessionsFilePath = "Movies_HW/src/main/resources/data/sessions.json"
+const val moviesFilePath = "Movies_HW/src/main/resources/data/movies.json"
+const val ticketsFilePath = "Movies_HW/src/main/resources/data/tickets.json"
+const val staffFilePath = "Movies_HW/src/main/resources/data/staff.json"
 
 const val authoMenu = "Список команд:\n" +
         "1) Войти\n" +

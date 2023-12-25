@@ -50,19 +50,18 @@ class TicketsRepository {
                 if (ticket.id == ticketId) {
                     for (session in sessionsRepository.sessionsArray!!) {
                         if (session.id == ticket.sessionId) {
-                            if (LocalDateTime.parse(
-                                    session.date,
-                                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
-                                ) <= LocalDateTime.now()
-                            ) {
+                            if (LocalDateTime.parse(session.date, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+                                ) <= LocalDateTime.now()) {
                                 return "Сеанс уже идёт"
                             }
+                            sessionsRepository.removeSeat(session.id, ticket.place)
+                            tickets -= ticket
+                            ticketsArray = tickets.toTypedArray()
+                            JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
+                            return "Билет возвращён"
                         }
                     }
-                    tickets -= ticket
-                    ticketsArray = tickets.toTypedArray()
-                    JSONTicketsSerializer().jsonSerialize(path, ticketsArray!!)
-                    return "Билет возвращён"
+
                 }
             }
         }
@@ -116,6 +115,7 @@ class TicketsRepository {
                 if (ticket.sessionId == sessionId) {
                     tickets -= ticket
                     isChanged = true
+                    break
                 }
             }
             if (isChanged) {

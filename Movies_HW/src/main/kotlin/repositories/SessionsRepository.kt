@@ -13,6 +13,18 @@ class SessionsRepository {
     private val path = sessionsFilePath
     var sessionsArray: Array<Session>? = JSONSessionsSerializer().jsonDeserialize(path)
 
+    fun removeSeat(sessionId: String, place: UInt){
+        if (sessionsArray != null){
+            for (session in sessionsArray!!){
+                if (session.id == sessionId){
+                    --session.places[(place - 1u).toInt()]
+                    JSONSessionsSerializer().jsonSerialize(path, sessionsArray!!)
+                    return
+                }
+            }
+        }
+    }
+
     fun findSession(date: String): Session? {
         if (sessionsArray != null) {
             for (session in sessionsArray!!) {
@@ -25,19 +37,17 @@ class SessionsRepository {
     }
     fun clearSessions(moviesArray: Array<Movie>?, ticketsRepository: TicketsRepository, localDateTime: LocalDateTime) {
         val sessionsList: MutableList<Session>
-        if (sessionsArray != null) {
+        if (sessionsArray != null){
             var isChanged = false
             sessionsList = sessionsArray!!.toMutableList()
-            for (session in sessionsArray!!) {
+            for (session in sessionsArray!!){
                 if (moviesArray != null) {
-                    for (movie in moviesArray) {
-                        if (movie.id == session.movieId) {
-                            val endOfTheMovie =
-                                LocalDateTime.parse(session.date, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
-                                    .plusHours(
-                                        (movie.duration / 60u).toLong()
-                                    ).plusMinutes((movie.duration - movie.duration / 60u).toLong())
-                            if (localDateTime > endOfTheMovie) {
+                    for (movie in moviesArray){
+                        if (movie.id == session.movieId){
+                            val startOfTheNewSession = LocalDateTime.parse(session.date, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                            val endOfTheMovie = startOfTheNewSession.plusHours(
+                                (movie.duration / 60u).toLong()).plusMinutes((movie.duration - movie.duration / 60u * 60u).toLong())
+                            if (localDateTime > endOfTheMovie){
                                 ticketsRepository.removeTickets(session.id)
                                 sessionsList -= session
                                 isChanged = true
@@ -47,12 +57,13 @@ class SessionsRepository {
                     }
                 }
             }
-            if (isChanged) {
+            if (isChanged){
                 val sessionsArr = sessionsList.toTypedArray()
                 JSONSessionsSerializer().jsonSerialize(path, sessionsArr)
             }
         }
     }
+
 
     fun addSession(moviesRepository: MoviesRepository,id:String, movieName: String, date: String, cost: UInt) : String {
         val currMovie = moviesRepository.findMovie(movieName) ?: return ("В каталоге нет такого фильма.")
